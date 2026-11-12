@@ -2,12 +2,13 @@ import { useState } from "react";
 import SideBar from "./components/SideBar";
 import MiniGames from "./pages/MiniGames";
 import GamePlayer from "./pages/GamePlayer";
+import StartWorkout from "./pages/StartWorkout";
 import "./styles/App.css";
 
 // App Component: Main shell with sidebar navigation
 // Viva point: State-driven page navigation pattern (activePage aur selectedGame state maintain karte hain)
 function App() {
-  const [activePage, setActivePage] = useState("dashboard");
+  const [activePage, setActivePage] = useState("workout");
   const [selectedGame, setSelectedGame] = useState(null);
 
   // Sidebar navigation handler
@@ -35,6 +36,9 @@ function App() {
           ) : (
             <MiniGames onSelectGame={(slug) => setSelectedGame(slug)} />
           )
+        ) : activePage === "workout" || activePage === "templates" ? (
+          /* Start Workout & Weekly Split Routine Section */
+          <StartWorkout />
         ) : (
           /* Default pages placeholder */
           <div>
