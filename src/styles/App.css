@@ -163,3 +163,352 @@ button {
   text-transform: capitalize;
   margin-top: 0;
 }
+
+/* ================================
+   DASHBOARD
+================================ */
+
+.dashboard {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  color: #8ca795;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.dashboard-header h1 {
+  font-size: 32px;
+  margin: 0 0 10px;
+  letter-spacing: -0.8px;
+}
+
+.dashboard-subtitle {
+  color: #8d9b91;
+  margin: 0;
+  font-size: 14px;
+}
+
+.dashboard-date {
+  background: #19251d;
+  border: 1px solid #2b4031;
+  color: #c1d4c6;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+}
+
+/* STAT CARDS */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: #17221b;
+  border: 1px solid #293b2e;
+  border-radius: 14px;
+  padding: 22px;
+  min-width: 0;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  border-color: #477b55;
+}
+
+.stat-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.stat-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #244b33;
+  color: #a7e5b8;
+  font-size: 19px;
+}
+
+.stat-change {
+  color: #8bd6a0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stat-title {
+  color: #91a196;
+  font-size: 13px;
+  margin: 0 0 10px;
+}
+
+.stat-card h2 {
+  color: #f4f8f4;
+  font-size: 27px;
+  margin: 0;
+}
+
+.stat-card h2 span {
+  color: #9baa9e;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+/* DASHBOARD CONTENT GRID */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr);
+  gap: 20px;
+}
+
+.dashboard-card {
+  background: #17221b;
+  border: 1px solid #293b2e;
+  border-radius: 14px;
+  padding: 24px;
+  min-width: 0;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+.card-header h3 {
+  color: #f0f5f1;
+  font-size: 16px;
+  margin: 0 0 7px;
+}
+
+.card-header p {
+  color: #89998e;
+  font-size: 12px;
+  margin: 0;
+}
+
+.card-badge {
+  background: #244b33;
+  color: #a8e2b7;
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 11px;
+}
+
+.record-trophy {
+  font-size: 22px;
+}
+
+/* WEEKLY ACTIVITY */
+
+.activity-chart {
+  height: 190px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 15px;
+  padding-top: 10px;
+}
+
+.activity-column {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.activity-bar-container {
+  flex: 1;
+  width: 100%;
+  max-width: 42px;
+  display: flex;
+  align-items: flex-end;
+  background: #202e24;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.activity-bar {
+  width: 100%;
+  min-height: 3px;
+  background: linear-gradient(180deg, #79d995, #34794b);
+  border-radius: 7px;
+  transition: height 0.3s ease;
+}
+
+.activity-column > span {
+  color: #91a196;
+  font-size: 11px;
+}
+
+/* PERSONAL RECORDS */
+
+.records-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.record-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #29372e;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.record-item strong {
+  font-size: 13px;
+  color: #e8f0e9;
+}
+
+.record-item span {
+  color: #84958a;
+  font-size: 11px;
+}
+
+.record-item h4 {
+  color: #a5e6b5;
+  font-size: 15px;
+  margin: 0;
+}
+
+/* RECENT WORKOUTS */
+
+.recent-card {
+  grid-column: 1 / -1;
+}
+
+.workout-table {
+  width: 100%;
+}
+
+.workout-table-header,
+.workout-row {
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr 0.8fr 1fr;
+  align-items: center;
+  gap: 15px;
+}
+
+.workout-table-header {
+  padding: 0 12px 14px;
+  border-bottom: 1px solid #304034;
+  color: #819487;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.workout-row {
+  padding: 17px 12px;
+  border-bottom: 1px solid #29372e;
+  color: #c1cec4;
+  font-size: 12px;
+}
+
+.workout-row:last-child {
+  border-bottom: none;
+}
+
+.workout-name {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.workout-name strong {
+  color: #edf4ee;
+  font-size: 13px;
+}
+
+.workout-name span {
+  color: #84958a;
+  font-size: 11px;
+}
+
+.workout-row > strong {
+  color: #a5e6b5;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recent-card {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 650px) {
+  .main-content {
+    padding: 22px 16px;
+  }
+
+  .dashboard-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 25px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-card {
+    padding: 17px;
+  }
+
+  .workout-table {
+    overflow-x: auto;
+  }
+
+  .workout-table-header,
+  .workout-row {
+    min-width: 520px;
+  }
+}

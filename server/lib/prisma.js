@@ -1,10 +1,22 @@
-import { PrismaClient } from "@prisma/client";
-import "dotenv/config";
 
-// Singleton PrismaClient instance taaki database connection pool efficiently manage ho
-// Viva note: Prisma ORM PostgreSQL connection ke liye internal pooling use karta hai.
+import prismaPackage from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const { PrismaClient } = prismaPackage;
+
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
+
 const prisma = new PrismaClient({
-  log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+  adapter,
+  log:
+    process.env.NODE_ENV === "development"
+      ? ["query", "error", "warn"]
+      : ["error"],
 });
 
 export default prisma;

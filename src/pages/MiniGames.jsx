@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { getMyBestScores } from "../utils/api";
 import "../styles/Games.css";
 
-// MiniGames Page: Dono games ke cards list karta hai aur player ka best score dikhata hai
-// Viva point: React useEffect hook se component mount hone par backend se highest scores fetch hote hain.
 export default function MiniGames({ onSelectGame }) {
   const [bestScores, setBestScores] = useState({
     "bag-catcher": 0,
