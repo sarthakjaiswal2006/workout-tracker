@@ -1,13 +1,13 @@
-
 import { useState } from "react";
 import SideBar from "./components/SideBar";
 import Dashboard from "./pages/Dashboard";
 import MiniGames from "./pages/MiniGames";
 import GamePlayer from "./pages/GamePlayer";
+import StartWorkout from "./pages/StartWorkout";
 import "./styles/App.css";
 
 function App() {
-  const [activePage, setActivePage] = useState("dashboard");
+  const [activePage, setActivePage] = useState("workout");
   const [selectedGame, setSelectedGame] = useState(null);
 
   const handleNavigate = (pageId) => {
@@ -29,6 +29,11 @@ function App() {
           onSelectGame={(slug) => setSelectedGame(slug)}
         />
       );
+    }
+
+    // Start Workout & Weekly Split Routine
+    if (activePage === "workout" || activePage === "templates") {
+      return <StartWorkout />;
     }
 
     if (activePage === "dashboard") {
