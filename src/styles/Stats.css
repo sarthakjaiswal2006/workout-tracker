@@ -1,0 +1,321 @@
+
+.stats-page {
+  width: 100%;
+  padding: 12px 8px 40px;
+  color: #f0f4f0;
+}
+
+.stats-header {
+  margin-bottom: 28px;
+}
+
+.stats-eyebrow {
+  color: #82a88b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.stats-header h1 {
+  font-size: 30px;
+  margin: 0;
+}
+
+.stats-subtitle {
+  color: #89958d;
+  font-size: 14px;
+  margin-top: 9px;
+}
+
+.stats-overview {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.stats-card {
+  background: #111b16;
+  border: 1px solid #26392d;
+  border-radius: 13px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stats-card span {
+  color: #9aa99e;
+  font-size: 12px;
+}
+
+.stats-card strong {
+  font-size: 27px;
+  color: #a5d6ae;
+}
+
+.stats-card small {
+  color: #718078;
+  font-size: 11px;
+}
+
+.stats-panel {
+  background: #111b16;
+  border: 1px solid #26392d;
+  border-radius: 14px;
+  padding: 22px;
+  min-width: 0;
+}
+
+.stats-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.stats-section-header h2 {
+  font-size: 16px;
+  margin: 0 0 7px;
+}
+
+.stats-section-header p {
+  font-size: 12px;
+  color: #89958d;
+  margin: 0;
+}
+
+.stats-unit {
+  color: #a5d6ae;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.volume-chart {
+  height: 225px;
+  display: flex;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.volume-column {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+}
+
+.volume-value {
+  height: 17px;
+  font-size: 10px;
+  color: #a5d6ae;
+  white-space: nowrap;
+}
+
+.volume-bar-area {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom: 1px solid #304238;
+}
+
+.volume-bar {
+  width: min(42px, 75%);
+  min-height: 0;
+  background: linear-gradient(180deg, #79bd8a, #315f40);
+  border-radius: 6px 6px 0 0;
+  transition: height 0.3s ease;
+}
+
+.volume-label {
+  color: #89958d;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.stats-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+  align-items: stretch;
+}
+
+.muscle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.muscle-item {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.muscle-item-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.muscle-item-info strong {
+  font-weight: 500;
+}
+
+.muscle-item-info span {
+  color: #a5d6ae;
+}
+
+.muscle-progress-track {
+  height: 8px;
+  background: #26392d;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.muscle-progress-fill {
+  height: 100%;
+  background: #5b9b6a;
+  border-radius: 20px;
+}
+
+.exercise-select {
+  width: 100%;
+  background: #19291f;
+  border: 1px solid #304b38;
+  border-radius: 8px;
+  color: #e4eee5;
+  padding: 11px 12px;
+  margin-bottom: 18px;
+  outline: none;
+}
+
+.exercise-select option {
+  background: #19291f;
+  color: #e4eee5;
+}
+
+.progression-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.progression-summary span {
+  color: #89958d;
+  font-size: 12px;
+}
+
+.progression-summary strong {
+  color: #a5d6ae;
+  font-size: 18px;
+}
+
+.progression-chart {
+  height: 155px;
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.progression-item {
+  flex: 1;
+  min-width: 42px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+.progression-bar-area {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom: 1px solid #304238;
+}
+
+.progression-bar {
+  width: min(32px, 75%);
+  background: linear-gradient(180deg, #79bd8a, #315f40);
+  border-radius: 5px 5px 0 0;
+}
+
+.progression-item strong {
+  font-size: 10px;
+  color: #a5d6ae;
+  white-space: nowrap;
+}
+
+.progression-item span {
+  font-size: 10px;
+  color: #89958d;
+  white-space: nowrap;
+}
+
+.stats-empty {
+  color: #89958d;
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+.stats-error {
+  color: #f0a4a4;
+}
+
+.stats-retry {
+  background: #244a32;
+  color: #c2e5c9;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+  .stats-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats-two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-header h1 {
+    font-size: 24px;
+  }
+
+  .stats-overview {
+    gap: 10px;
+  }
+
+  .stats-card {
+    padding: 15px;
+  }
+
+  .stats-card strong {
+    font-size: 22px;
+  }
+
+  .stats-panel {
+    padding: 16px;
+  }
+
+  .volume-chart {
+    gap: 8px;
+  }
+}

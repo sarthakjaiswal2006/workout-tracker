@@ -23,14 +23,18 @@ async function main() {
     },
   });
 
-  console.log("Demo user ready:");
-  console.log({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-  });
+  console.log("\nDemo user details:");
+  console.log("-------------------");
+  console.log("ID:", user.id);
+  console.log("Name:", user.name);
+  console.log("Email:", user.email);
 }
 
 main()
-  .catch(console.error)
-  .finally(() => prisma.$disconnect());
+  .catch((error) => {
+    console.error("Error:", error);
+    process.exitCode = 1;
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

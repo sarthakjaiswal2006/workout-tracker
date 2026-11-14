@@ -1,13 +1,15 @@
 import { useState } from "react";
 import SideBar from "./components/SideBar";
 import Dashboard from "./pages/Dashboard";
+import History from "./pages/History";
+import Stats from "./pages/Stats";
 import MiniGames from "./pages/MiniGames";
 import GamePlayer from "./pages/GamePlayer";
 import StartWorkout from "./pages/StartWorkout";
 import "./styles/App.css";
 
 function App() {
-  const [activePage, setActivePage] = useState("workout");
+  const [activePage, setActivePage] = useState("dashboard");
   const [selectedGame, setSelectedGame] = useState(null);
 
   const handleNavigate = (pageId) => {
@@ -16,7 +18,6 @@ function App() {
   };
 
   const renderPage = () => {
-    // Existing Mini Games flow — preserved
     if (activePage === "mini-games" || activePage === "games") {
       return selectedGame ? (
         <GamePlayer
@@ -25,20 +26,17 @@ function App() {
           onSwitchGame={(newSlug) => setSelectedGame(newSlug)}
         />
       ) : (
-        <MiniGames
-          onSelectGame={(slug) => setSelectedGame(slug)}
-        />
+        <MiniGames onSelectGame={(slug) => setSelectedGame(slug)} />
       );
     }
 
-    // Start Workout & Weekly Split Routine
     if (activePage === "workout" || activePage === "templates") {
       return <StartWorkout />;
     }
 
-    if (activePage === "dashboard") {
-      return <Dashboard />;
-    }
+    if (activePage === "history") return <History />;
+    if (activePage === "stats") return <Stats />;
+    if (activePage === "dashboard") return <Dashboard />;
 
     return (
       <div>
@@ -50,14 +48,8 @@ function App() {
 
   return (
     <div className="app">
-      <SideBar
-        activePage={activePage}
-        onNavigate={handleNavigate}
-      />
-
-      <main className="main-content">
-        {renderPage()}
-      </main>
+      <SideBar activePage={activePage} onNavigate={handleNavigate} />
+      <main className="main-content">{renderPage()}</main>
     </div>
   );
 }
