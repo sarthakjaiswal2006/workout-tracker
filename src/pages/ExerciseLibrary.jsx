@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import "../styles/ExerciseLibrary.css";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
+import apiFetch from "../utils/apiFetch.js";
+
+const API_BASE_URL = "";
   "https://workout-tracker-production-a67a1737.up.railway.app/api";
 
 const MUSCLE_GROUPS = [
@@ -60,7 +61,7 @@ export default function ExerciseLibrary() {
 
     async function fetchServerExercises() {
       try {
-        const res = await fetch(`${API_BASE_URL}/exercises`);
+        const res = await apiFetch(`/api/exercises`);
         if (!res.ok) return;
         const data = await res.json();
         if (!ignore && data.success && Array.isArray(data.exercises) && data.exercises.length > 0) {

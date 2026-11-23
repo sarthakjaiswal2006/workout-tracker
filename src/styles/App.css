@@ -116,6 +116,15 @@ button {
   margin-top: auto;
 }
 
+.sidebar-logout-btn {
+  color: #c47a7a !important;
+}
+
+.sidebar-logout-btn:hover {
+  background-color: rgba(200, 60, 60, 0.12) !important;
+  color: #f28b8b !important;
+}
+
 .sidebar-profile {
   display: flex;
   align-items: center;

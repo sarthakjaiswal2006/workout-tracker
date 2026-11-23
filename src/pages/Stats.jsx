@@ -1,12 +1,9 @@
 
 import { useEffect, useState } from "react";
 import "../styles/Stats.css";
+import apiFetch from "../utils/apiFetch.js";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  "https://workout-tracker-production-a67a1737.up.railway.app/api";
-
-const API_URL = `${API_BASE_URL}/stats`;
+const API_URL = "/api/stats";
 
 function Stats() {
   const [stats, setStats] = useState(null);
@@ -22,7 +19,7 @@ function Stats() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch(API_URL);
+        const response = await apiFetch(API_URL);
         const data = await response.json();
 
         if (!response.ok || !data.success) {

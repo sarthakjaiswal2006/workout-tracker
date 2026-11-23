@@ -2,17 +2,20 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import gamesRouter from "./routes/games.js";
 import exercisesRouter from "./routes/exercises.js";
+import authRouter from "./routes/auth.js";
 import prisma from "./lib/prisma.js";
+import { requireAuth } from "./middleware/auth.js";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
-const DEMO_USER_ID = "90816367-c8d1-4d69-afc0-49b41eba4a21";
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
+app.use(cookieParser());
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {
@@ -23,12 +26,15 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-app.get("/api/dashboard", async (req, res) => {
+// ── All routes below require a valid JWT ───────────────────────────────────────
+
+app.get("/api/dashboard", requireAuth, async (req, res) => {
+  const userId = req.user.id;
   try {
     const [workouts, personalRecords, sets] = await Promise.all([
       prisma.workout.findMany({
         where: {
-          userId: DEMO_USER_ID,
+          userId,
           endedAt: { not: null },
         },
         orderBy: {
@@ -45,7 +51,7 @@ app.get("/api/dashboard", async (req, res) => {
 
       prisma.personalRecord.findMany({
         where: {
-          userId: DEMO_USER_ID,
+          userId,
         },
         orderBy: {
           achievedAt: "desc",
@@ -65,7 +71,7 @@ app.get("/api/dashboard", async (req, res) => {
           isCompleted: true,
           workoutExercise: {
             workout: {
-              userId: DEMO_USER_ID,
+              userId,
               endedAt: { not: null },
             },
           },
@@ -184,11 +190,12 @@ app.get("/api/dashboard", async (req, res) => {
   }
 });
 
-app.get("/api/history", async (req, res) => {
+app.get("/api/history", requireAuth, async (req, res) => {
+  const userId = req.user.id;
   try {
     const workouts = await prisma.workout.findMany({
       where: {
-        userId: DEMO_USER_ID,
+        userId,
         endedAt: { not: null },
       },
       orderBy: {
@@ -285,12 +292,13 @@ app.get("/api/history", async (req, res) => {
   }
 });
 
-app.delete("/api/history/:id", async (req, res) => {
+app.delete("/api/history/:id", requireAuth, async (req, res) => {
+  const userId = req.user.id;
   try {
     const result = await prisma.workout.deleteMany({
       where: {
         id: req.params.id,
-        userId: DEMO_USER_ID,
+        userId,
         endedAt: { not: null },
       },
     });
@@ -316,11 +324,12 @@ app.delete("/api/history/:id", async (req, res) => {
   }
 });
 
-app.get("/api/stats", async (req, res) => {
+app.get("/api/stats", requireAuth, async (req, res) => {
+  const userId = req.user.id;
   try {
     const workouts = await prisma.workout.findMany({
       where: {
-        userId: DEMO_USER_ID,
+        userId,
         endedAt: { not: null },
       },
       orderBy: {
@@ -521,15 +530,8 @@ app.get("/api/stats", async (req, res) => {
   }
 });
 
+app.use("/api/auth", authRouter);
 app.use("/api/games", gamesRouter);
 app.use("/api/exercises", exercisesRouter);
 
 export default app;
-
-if (process.env.NODE_ENV !== "test") {
-  app.listen(PORT, () => {
-    console.log(
-      `Workout Tracker API Server running on http://localhost:${PORT}`
-    );
-  });
-}

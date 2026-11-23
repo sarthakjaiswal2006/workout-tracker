@@ -1,36 +1,56 @@
-// requireAuth: Authentication middleware jo incoming requests ko verify karta hai
-// Viva point: REST API security ke liye standard Authorization header (Bearer token/UUID) check karta hai.
+import jwt from "jsonwebtoken";
+
+const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET;
+
+/**
+ * requireAuth: Verifies the JWT access token from the Authorization header.
+ * Attaches req.user = { id: userId } on success.
+ */
 export async function requireAuth(req, res, next) {
   try {
-    let userId = null;
-
-    // 1. Check 'Authorization: Bearer <userId/token>'
     const authHeader = req.headers.authorization;
-    if (authHeader && authHeader.startsWith("Bearer ")) {
-      userId = authHeader.split(" ")[1]?.trim();
-    }
 
-    // 2. Testing fallback: 'x-user-id: <uuid>' header
-    if (!userId && req.headers["x-user-id"]) {
-      userId = String(req.headers["x-user-id"]).trim();
-    }
-
-    // Agar user unauthenticated hai toh 401 Unauthorized return karo
-    if (!userId) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({
         success: false,
-        error: "Unauthorized: Missing Authorization Bearer token or x-user-id header."
+        error: "Unauthorized: Missing or invalid Authorization header.",
       });
     }
 
-    // Request object par user attach kar do taaki downstream controllers ise access kar sakein
-    req.user = { id: userId };
+    const token = authHeader.split(" ")[1]?.trim();
+
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        error: "Unauthorized: Missing token.",
+      });
+    }
+
+    let payload;
+    try {
+      payload = jwt.verify(token, ACCESS_SECRET);
+    } catch (err) {
+      const isExpired = err.name === "TokenExpiredError";
+      return res.status(401).json({
+        success: false,
+        error: isExpired ? "Token expired. Please refresh." : "Invalid token.",
+      });
+    }
+
+    if (payload.type !== "access") {
+      return res.status(401).json({
+        success: false,
+        error: "Invalid token type.",
+      });
+    }
+
+    req.user = { id: payload.sub };
     next();
   } catch (error) {
     console.error("[Auth Middleware Error]:", error);
     return res.status(500).json({
       success: false,
-      error: "Internal server error during authentication."
+      error: "Internal server error during authentication.",
     });
   }
 }

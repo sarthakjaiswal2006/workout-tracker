@@ -1,12 +1,9 @@
 
 import { useEffect, useState } from "react";
 import "../styles/History.css";
+import apiFetch from "../utils/apiFetch.js";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  "https://workout-tracker-production-a67a1737.up.railway.app/api";
-
-const API_URL = `${API_BASE_URL}/history`;
+const API_URL = "/api/history";
 
 function formatDate(date) {
   return new Date(date).toLocaleDateString("en-IN", {
@@ -34,7 +31,7 @@ function History() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(API_URL);
+      const response = await apiFetch(API_URL);
       const data = await response.json();
 
       if (!response.ok || !data.success) {
@@ -54,7 +51,7 @@ function History() {
 
     async function loadInitialHistory() {
       try {
-        const response = await fetch(API_URL);
+        const response = await apiFetch(API_URL);
         const data = await response.json();
 
         if (ignore) return;
@@ -90,7 +87,7 @@ function History() {
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`${API_URL}/${workoutId}`, {
+     const response = await apiFetch(`/api/history/${workoutId}`, {
         method: "DELETE",
       });
 

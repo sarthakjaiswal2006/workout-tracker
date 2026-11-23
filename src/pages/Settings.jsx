@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import "../styles/Settings.css";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
+import apiFetch from "../utils/apiFetch.js";
+
+const API_BASE_URL = "http://localhost:5001/api";
   "https://workout-tracker-production-a67a1737.up.railway.app/api";
 
 export default function Settings() {
@@ -52,7 +53,7 @@ export default function Settings() {
       if (showChecking) {
         setServerStatus({ status: "checking", message: "Checking connection...", latency: null });
       }
-      const res = await fetch(`${API_BASE_URL}/health`);
+      const res = await apiFetch(`/api/health`);
       const latency = Date.now() - startTime;
       if (res.ok) {
         setServerStatus({
@@ -82,7 +83,7 @@ export default function Settings() {
     async function loadHealth() {
       const startTime = Date.now();
       try {
-        const res = await fetch(`${API_BASE_URL}/health`);
+        const res = await apiFetch(`/api/health`);
         const latency = Date.now() - startTime;
 
         if (ignore) return;

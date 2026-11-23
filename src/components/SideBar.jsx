@@ -7,22 +7,29 @@ const navigationItems = [
   { id: "mini-games", icon: "🎮", label: "Mini Games" },
 ];
 
-function Sidebar({ activePage, onNavigate }) {
-  let athleteName = "Arnav Maheshwari";
-  let athleteGoal = "Personal Account";
+function Sidebar({ activePage, onNavigate, user, onLogout }) {
+  // Prefer the authenticated user from context; fall back to localStorage profile
+  let athleteName = user?.name || "Athlete";
+  let athleteEmail = user?.email || "Personal Account";
 
-  try {
-    const saved = localStorage.getItem("workout_athlete_profile");
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (parsed.name) athleteName = parsed.name;
-      if (parsed.fitnessGoal) athleteGoal = parsed.fitnessGoal;
+  if (!user) {
+    try {
+      const saved = localStorage.getItem("workout_athlete_profile");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.name) athleteName = parsed.name;
+        if (parsed.fitnessGoal) athleteEmail = parsed.fitnessGoal;
+      }
+    } catch {
+      // Fallback to default
     }
-  } catch {
-    // Fallback to default
   }
 
   const avatarInitial = athleteName.trim().charAt(0).toUpperCase() || "A";
+
+  const handleLogout = async () => {
+    if (onLogout) await onLogout();
+  };
 
   return (
     <div className="sidebar">
@@ -41,9 +48,7 @@ function Sidebar({ activePage, onNavigate }) {
           {navigationItems.map((item) => (
             <button
               key={item.id}
-              className={`nav-item ${
-                activePage === item.id ? "active" : ""
-              }`}
+              className={`nav-item ${activePage === item.id ? "active" : ""}`}
               onClick={() => onNavigate(item.id)}
             >
               <span className="nav-icon">{item.icon}</span>
@@ -55,14 +60,24 @@ function Sidebar({ activePage, onNavigate }) {
 
       <div className="sidebar-bottom">
         <button
-          className={`nav-item ${
-            activePage === "settings" ? "active" : ""
-          }`}
+          className={`nav-item ${activePage === "settings" ? "active" : ""}`}
           onClick={() => onNavigate("settings")}
         >
           <span className="nav-icon">⚙</span>
           <span>Settings</span>
         </button>
+
+        {/* Logout button */}
+        {onLogout && (
+          <button
+            className="nav-item sidebar-logout-btn"
+            onClick={handleLogout}
+            title="Sign out"
+          >
+            <span className="nav-icon">🚪</span>
+            <span>Sign Out</span>
+          </button>
+        )}
 
         <div
           className="sidebar-profile"
@@ -73,8 +88,16 @@ function Sidebar({ activePage, onNavigate }) {
           <div className="profile-avatar">{avatarInitial}</div>
           <div className="profile-info">
             <strong>{athleteName}</strong>
-            <span style={{ maxWidth: "140px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "block" }}>
-              {athleteGoal}
+            <span
+              style={{
+                maxWidth: "140px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                display: "block",
+              }}
+            >
+              {athleteEmail}
             </span>
           </div>
         </div>
